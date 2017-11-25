@@ -1,10 +1,13 @@
 from blynkapi import Blynk
+import time
 
 #Sensor number 4 with DHT22
-token = '073b5fb0e0854d09b13e3ce7537dd82b'
+token = 'e6532120260e4cc68318831d146b2c51'
 
-sensor_reading = Blynk(token, pin="v1", server="blynk.bitville.com", port="8080")
+#Pin 1 is LED,5 is humidity,6 is temperature
+sensor_reading = Blynk(token, pin="V5", server="blynk.bitville.com", port="8080")
 
-result = sensor_reading.get_val()
-
-print result
+while True:
+    result = sensor_reading.get_val()
+    print result
+    time.sleep(1)

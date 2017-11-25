@@ -1,0 +1,21 @@
+{
+  "name": "aruco-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "jpeg-js": "^0.3.3",
+    "js-aruco": "^0.1.0",
+    "multer": "^1.3.0",
+    "pixel": "0.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node aruco.js",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
