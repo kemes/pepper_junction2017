@@ -21,7 +21,7 @@ class MyClass(GeneratedClass):
     def onInput_onGet(self):
         currentTime = datetime.datetime.now()
         aTime = [currentTime.hour, currentTime.minute]
-        self.onTime(aTime)]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onGet" type="1" type_size="1" nature="1" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Output name="onTime" type="0" type_size="1" nature="2" inner="0" tooltip="This output provides current time in table formatted as following :&#x0A;[yyyy, mm, dd, hh, MM, ss, mmmmmm]&#x0A;with&#x0A;yyyy as year&#x0A;mm as month&#x0A;dd as day&#x0A;hh as hours&#x0A;MM as minutes&#x0A;ss as seconds&#x0A;mmmmmm as micro-seconds" id="3" /></Box><Box name="Say Name and Time" id="12" localization="8" tooltip="Say some text. The text can be localized." x="552" y="175"><bitmap>media/images/box/interaction/say.png</bitmap><script language="4"><content><![CDATA[import time
+        self.onTime(aTime)]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onGet" type="1" type_size="1" nature="1" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Output name="onTime" type="0" type_size="1" nature="2" inner="0" tooltip="This output provides current time in table formatted as following :&#x0A;[yyyy, mm, dd, hh, MM, ss, mmmmmm]&#x0A;with&#x0A;yyyy as year&#x0A;mm as month&#x0A;dd as day&#x0A;hh as hours&#x0A;MM as minutes&#x0A;ss as seconds&#x0A;mmmmmm as micro-seconds" id="3" /></Box><Box name="Say Name and Time2" id="12" localization="8" tooltip="Say some text. The text can be localized." x="536" y="212"><bitmap>media/images/box/interaction/say.png</bitmap><script language="4"><content><![CDATA[import time
 
 class MyClass(GeneratedClass):
     def __init__(self):
@@ -51,22 +51,25 @@ class MyClass(GeneratedClass):
             sentence += "\VCT="+ str( self.getParameter("Voice shaping (%)") ) + "\ "
             #sentence += self.getParameter("Text")
             if(self.checked_in):
-                sentence += "Morning, %s. The time is %s:%s" % (str(p), str(self.time[0]), str(self.time[1]))
-            else:
                 sentence += "Goodbye, %s. The time is %s:%s" % (str(p), str(self.time[0]), str(self.time[1]))
+            else:
+                sentence += "Morning, %s. The time is %s:%s" % (str(p), str(self.time[0]), str(self.time[1]))
             sentence +=  "\RST\ "
             print sentence
             id = self.tts.post.say(str(sentence))
             self.ids.append(id)
             self.tts.wait(id, 0)
+            self.checked_in = !self.checked_in
+            self.onStopped(self.checked_in)
         finally:
             try:
                 self.ids.remove(id)
             except:
                 pass
             if( self.ids == [] ):
-                self.onStopped() # activate output of the box
+                self.onStopped(self.checked_in) # activate output of the box
                 self.bIsRunning = False
+
     def onInput_time(self, p):
         self.time = p
         print p
