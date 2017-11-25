@@ -3,8 +3,16 @@ var multer  = require('multer')
 var fs = require('fs');
 var app = express();
 
-//var storage = multer.diskStorage()
-var upload = multer({ dest: 'uploads/' })
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '_' +file.originalname)
+  }
+})
+
+var upload = multer({ storage: storage })
 
 app.get('/', function(req, res){
     console.log('GET /')
