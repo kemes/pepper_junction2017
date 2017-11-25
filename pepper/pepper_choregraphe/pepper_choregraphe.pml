@@ -9,6 +9,7 @@
         <File name="yuhju" src="yuhju.pmt" />
         <File name="elephant" src="behavior_1/elephant.ogg" />
         <File name="big_buck_bunny" src="big_buck_bunny.mp4" />
+        <File name="index" src="html/index.html" />
     </Resources>
     <Topics />
     <IgnoredPaths />
