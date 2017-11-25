@@ -13,6 +13,13 @@
   <behaviorContent path="behavior_1">
    <userRequestable/>
    <nature>interactive</nature>
+   <triggerSentences/>
+   <loadingResponses/>
+   <autonomous/>
+   <permissions/>
+  </behaviorContent>
+  <behaviorContent path="Test">
+   <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
  </contents>

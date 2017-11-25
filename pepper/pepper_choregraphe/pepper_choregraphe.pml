@@ -3,13 +3,16 @@
     <Manifest src="manifest.xml" />
     <BehaviorDescriptions>
         <BehaviorDescription name="behavior" src="behavior_1" xar="behavior.xar" />
+        <BehaviorDescription name="behavior" src="Learning" xar="behavior.xar" />
+        <BehaviorDescription name="behavior" src="Main" xar="behavior.xar" />
+        <BehaviorDescription name="behavior" src="Test" xar="behavior.xar" />
     </BehaviorDescriptions>
     <Dialogs />
     <Resources>
         <File name="yuhju" src="yuhju.pmt" />
         <File name="elephant" src="behavior_1/elephant.ogg" />
-        <File name="big_buck_bunny" src="big_buck_bunny.mp4" />
         <File name="index" src="html/index.html" />
+        <File name="center" src="html/center.jpg" />
     </Resources>
     <Topics />
     <IgnoredPaths />
