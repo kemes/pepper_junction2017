@@ -72,10 +72,9 @@
     <context>
         <name>Test/behavior.xar:/Say Name and Time2</name>
         <message>
-            <location filename="Test/behavior.xar" line="0"/>
             <source>Hello Romas</source>
             <comment>Text</comment>
-            <translation type="unfinished">Hello Romas</translation>
+            <translation type="obsolete">Hello Romas</translation>
         </message>
     </context>
 </TS>
