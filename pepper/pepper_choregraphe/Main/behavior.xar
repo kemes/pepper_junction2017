@@ -384,8 +384,8 @@ class MyClass(GeneratedClass):
                 sentence += "You checked out at %s:%s." % (self.check_in_time[0], self.check_in_time[1])
             else:
                 sentence += "Goodbye, %s. The time is %s:%s. The humidity is: %s" % (str(p), str(self.time[0]), str(self.time[1]), str("%.1f" % self.humidity))
-                sentence += "You checked in at %s:%s." % (str(self.check_in_time[0]), str(self.check_in_time[1])
-                sentence += "Today you worked for %s hours and %s minutes." % (str(self.time[0] - self.check_in_time[0]), str(self.time[1] -self.check_in_time[1]))
+                sentence += "You checked in at %s:%s." % (str(self.check_in_time[0]), str(self.check_in_time[1]))
+                sentence += "You worked for %s hours and %s minutes." % (str(int(self.time[0]) - int(self.check_in_time[0])), str(int(self.time[1]) - int(self.check_in_time[1])))
             sentence +=  "\RST\ "
             print sentence
             id = self.tts.post.say(str(sentence))
