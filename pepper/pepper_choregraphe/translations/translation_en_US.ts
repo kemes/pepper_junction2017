@@ -37,6 +37,15 @@
         </message>
     </context>
     <context>
+        <name>Main/behavior.xar:/Say Mood</name>
+        <message>
+            <location filename="Main/behavior.xar" line="0"/>
+            <source>Hello Romas</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Hello Romas</translation>
+        </message>
+    </context>
+    <context>
         <name>Main/behavior.xar:/Say Name and Date</name>
         <message>
             <source>Hello Romas</source>

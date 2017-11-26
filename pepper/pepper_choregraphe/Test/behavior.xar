@@ -21,24 +21,49 @@ class MyClass(GeneratedClass):
     def onInput_onGet(self):
         currentTime = datetime.datetime.now()
         aTime = [currentTime.hour, currentTime.minute]
-        self.onTime(aTime)]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onGet" type="1" type_size="1" nature="1" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Output name="onTime" type="0" type_size="1" nature="2" inner="0" tooltip="This output provides current time in table formatted as following :&#x0A;[yyyy, mm, dd, hh, MM, ss, mmmmmm]&#x0A;with&#x0A;yyyy as year&#x0A;mm as month&#x0A;dd as day&#x0A;hh as hours&#x0A;MM as minutes&#x0A;ss as seconds&#x0A;mmmmmm as micro-seconds" id="3" /></Box><Box name="test" id="2" localization="8" tooltip="" x="349" y="442"><bitmap>media/images/box/box-python-script.png</bitmap><script language="4"><content><![CDATA[class MyClass(GeneratedClass):
+        self.onTime(aTime)]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onGet" type="1" type_size="1" nature="1" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Output name="onTime" type="0" type_size="1" nature="2" inner="0" tooltip="This output provides current time in table formatted as following :&#x0A;[yyyy, mm, dd, hh, MM, ss, mmmmmm]&#x0A;with&#x0A;yyyy as year&#x0A;mm as month&#x0A;dd as day&#x0A;hh as hours&#x0A;MM as minutes&#x0A;ss as seconds&#x0A;mmmmmm as micro-seconds" id="3" /></Box><Box name="Insert with Name" id="9" localization="8" tooltip="Stores in NAOqi&apos;s shared memory the given value at the given key." x="682" y="129"><bitmap>media/images/box/sensors/STM.png</bitmap><script language="4"><content><![CDATA[class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
+        pass
 
     def onLoad(self):
-        #put initialization code here
-        pass
+        self.memory = ALProxy("ALMemory")
+        self.name = "pepper"
 
     def onUnload(self):
-        #put clean-up code here
-        pass
+        self.memory = None
 
-    def onInput_onStart(self):
-        import os
-        print os.cwd()
-        #self.onStopped() #activate the output of the box
-        pass
+    def onInput_onStart(self, p):
+        self.memory.insertData("MyApplication/" + self.name + '/' + self.getParameter("key"), p)
+        self.onStopped(p)
+
+    def onInput_name(self, p):
+        self.name = str(p)
+        print self.name
 
     def onInput_onStop(self):
-        self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
-        self.onStopped() #activate the output of the box]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="16" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" /></Diagram></BehaviorKeyframe></BehaviorLayer></Timeline></Box></ChoregrapheProject>
+        self.onUnload() #~ it is recommended to call onUnload of this box in a onStop method, as the code written in onUnload is used to stop the box as well
+        pass]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="0" type_size="1" nature="2" inner="0" tooltip="Receives the value to be inserted in ALMemory." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Input name="name" type="3" type_size="1" nature="1" inner="0" tooltip="" id="4" /><Output name="onStopped" type="0" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished. It contains the inserted value in ALMemory." id="5" /><Output name="onError" type="3" type_size="1" nature="1" inner="0" tooltip="Output when error is raised by the behavior. Contains the error message." id="6" /><Parameter name="key" inherits_from_parent="0" content_type="3" value="checked_in" default_value="MyApplication/MyData" custom_choice="0" tooltip="" id="7" /></Box><Box name="Get with Name" id="11" localization="8" tooltip="Retrieves from NAOqi&apos;s shared memory the given value at the given key." x="674" y="349"><bitmap>media/images/box/sensors/STM.png</bitmap><script language="4"><content><![CDATA[class MyClass(GeneratedClass):
+    def __init__(self):
+        GeneratedClass.__init__(self)
+        pass
+
+    def onLoad(self):
+        self.memory = ALProxy("ALMemory")
+
+    def onUnload(self):
+        self.memory = None
+
+    def onInput_onStart(self, p):
+        result = self.memory.getData("MyApplication/" + str(p) + '/' + self.getParameter("key"))
+        self.onStopped(result)
+
+    def onInput_onStop(self):
+        self.onUnload() #~ it is recommended to call onUnload of this box in a onStop method, as the code written in onUnload is used to stop the box as well
+        pass]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="3" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="0" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished. It contains the retrieved value from ALMemory." id="4" /><Output name="onError" type="3" type_size="1" nature="1" inner="0" tooltip="Output when error is raised by the behavior. Contains the error message." id="5" /><Parameter name="key" inherits_from_parent="0" content_type="3" value="checked_in" default_value="MyApplication/MyData" custom_choice="0" tooltip="" id="6" /></Box><Box name="Number Edit" id="2" localization="8" tooltip="Send the number you entered when the input is stimulated." plugin="numberedit_plugin" x="488" y="36"><bitmap>media/images/box/interaction/vocabulary.png</bitmap><script language="4"><content><![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		GeneratedClass.__init__(self)
+
+	def onInput_onStart(self):
+		self.onStopped(1)]]></content></script><pluginContent><number>1</number></pluginContent><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when Diagram is loaded." id="1" /><Input name="onStart" type="1" type_size="1" nature="1" inner="0" tooltip="To send the number on the output." id="2" /><Output name="onStopped" type="2" type_size="1" nature="2" inner="0" tooltip="The number you entered." id="3" /></Box><Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="16" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="11" indexofinput="2" outputowner="1" indexofoutput="3" /><Link inputowner="9" indexofinput="4" outputowner="1" indexofoutput="3" /><Link inputowner="1" indexofinput="2" outputowner="9" indexofoutput="5" /><Link inputowner="2" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="9" indexofinput="2" outputowner="2" indexofoutput="3" /></Diagram></BehaviorKeyframe></BehaviorLayer></Timeline></Box></ChoregrapheProject>
